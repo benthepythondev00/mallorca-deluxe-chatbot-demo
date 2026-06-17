@@ -177,17 +177,10 @@
     });
 
     return el("header", { class: "mdc-header" }, [
-      el("img", { class: "mdc-header-avatar", src: this.cfg.avatarUrl || "", alt: "" }),
-      el("div", { class: "mdc-header-meta" }, [
-        el("div", { class: "mdc-header-title", text: this.cfg.brandName || "MALLORCA DELUXE" }),
-        el("div", { class: "mdc-header-sub" }, [
-          el("span", { class: "mdc-dot", "aria-hidden": "true" }),
-          el("span", { dataset: { mdc: "online" }, text: this.t("online") })
-        ])
-      ]),
       this.langSwitch,
       el("button", { type: "button", class: "mdc-icon-btn mdc-close", "aria-label": this.t("close"),
-        dataset: { mdc: "close" }, onclick: function () { self.close(); }, html: "&#10005;" })
+        dataset: { mdc: "close" }, onclick: function () { self.close(); }, html: "&#10005;" }),
+      el("img", { class: "mdc-header-avatar", src: this.cfg.avatarUrl || "", alt: this.cfg.brandName || "" })
     ]);
   };
 
