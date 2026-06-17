@@ -126,9 +126,9 @@
         flow: "entry",
         key: "intent",
         bot: [{
-          de: "Willkommen bei MALLORCA DELUXE. Gerne bin ich Ihnen bei der Suche nach Ihrer neuen Immobilie auf Mallorca behilflich. Wobei darf ich Sie unterstützen?",
-          en: "Welcome to MALLORCA DELUXE. I would be delighted to help you find your new property on Mallorca. How may I assist you?",
-          es: "Bienvenido a MALLORCA DELUXE. Estaré encantado de ayudarle a encontrar su nueva propiedad en Mallorca. ¿En qué puedo ayudarle?"
+          de: "Hallo, ich bin Matthias von MALLORCA DELUXE. Wie kann ich Ihnen behilflich sein?",
+          en: "Hello, I'm Matthias from MALLORCA DELUXE. How can I help you?",
+          es: "Hola, soy Matthias de MALLORCA DELUXE. ¿En qué puedo ayudarle?"
         }],
         options: [
           { v: "kaufen", l: { de: "Ich möchte kaufen", en: "I want to buy", es: "Quiero comprar" }, next: "b_purpose" },
