@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>MALLORCA DELUXE – Chatbot Vorschau</title>
+  <link rel="stylesheet" href="./assets/widget.css">
+  <style>
+    :root { --teal:#0e3a4f; --gold:#c8a24b; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; color:#16242e; background:#eef1f4; }
+    .top { background:#fff; border-bottom:1px solid #e3e7eb; }
+    .top-in { max-width:1040px; margin:0 auto; padding:14px 22px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .brand { font-weight:800; letter-spacing:.05em; text-transform:uppercase; color:var(--teal); }
+    .badge { font-size:12px; font-weight:700; color:#7a6320; background:#f6ead0; border:1px solid #e7d3a3; padding:4px 10px; border-radius:999px; }
+    .hero { background:linear-gradient(120deg,#0e3a4f,#16607a); color:#fff; }
+    .hero-in { max-width:1040px; margin:0 auto; padding:64px 22px; }
+    .hero h1 { font-size:34px; margin:0 0 10px; font-weight:800; letter-spacing:.01em; }
+    .hero p { font-size:18px; opacity:.92; margin:0 0 26px; max-width:640px; line-height:1.5; }
+    .cta { display:flex; gap:12px; flex-wrap:wrap; }
+    .btn { border:none; cursor:pointer; font:inherit; font-weight:700; font-size:15px; padding:13px 20px; border-radius:12px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform .15s ease, box-shadow .15s ease; }
+    .btn-primary { background:var(--gold); color:#1d2733; }
+    .btn-ghost { background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.4); }
+    .btn:hover { transform:translateY(-1px); }
+    .btn.active { outline:3px solid rgba(255,255,255,.85); }
+    .wrap { max-width:1040px; margin:0 auto; padding:40px 22px 120px; }
+    .note { background:#fff; border:1px solid #e3e7eb; border-left:4px solid var(--gold); border-radius:12px; padding:16px 18px; color:#465360; line-height:1.6; max-width:720px; }
+    .note b { color:#16242e; }
+    .feat { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-top:28px; }
+    .card { background:#fff; border:1px solid #e3e7eb; border-radius:12px; padding:18px; }
+    .card h3 { margin:0 0 6px; font-size:15px; color:var(--teal); }
+    .card p { margin:0; font-size:14px; color:#5a6772; line-height:1.5; }
+    .hint { margin-top:14px; font-size:13px; color:#8a96a1; }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-in">
+      <span class="brand">MALLORCA DELUXE</span>
+      <span class="badge">Vorschau / Demo</span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-in">
+      <h1>Chatbot-Vorschau</h1>
+      <p>Klicken Sie unten rechts auf den Chat. Wählen Sie den Dialog der Startseite oder einer Objektseite – die Sprache (DE/EN/ES) lässt sich oben rechts im Chat umschalten.</p>
+      <div class="cta">
+        <button class="btn btn-primary" data-ctx="home">Startseiten-Dialog</button>
+        <button class="btn btn-ghost" data-ctx="property">Objektseiten-Dialog</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="note">
+      <b>Hinweis:</b> Dies ist eine reine Design- und Ablauf-Vorschau. In dieser Demo werden <b>keine echten Anfragen versendet</b> – auf der Live-Seite gehen die Leads bewertet per E-Mail an Sie und erscheinen zusätzlich in der WordPress-Übersicht.
+    </div>
+
+    <div class="feat">
+      <div class="card"><h3>Geführter Dialog</h3><p>Käufer- und Verkäufer-Flow auf der Startseite, kürzerer Dialog auf Objektseiten.</p></div>
+      <div class="card"><h3>Dreisprachig</h3><p>Deutsch, Englisch, Spanisch – Umschalter oben rechts im Chat.</p></div>
+      <div class="card"><h3>Lead-Bewertung</h3><p>Jede Anfrage wird automatisch bewertet und vorsortiert (Priorität A–D).</p></div>
+      <div class="card"><h3>DSGVO &amp; WhatsApp</h3><p>Einwilligung integriert, optionaler WhatsApp-Klick-Link am Ende.</p></div>
+    </div>
+    <p class="hint" id="ctxhint"></p>
+  </div>
+
+  <script>
+    (function () {
+      var qs = new URLSearchParams(location.search);
+      var ctx = qs.get('context') === 'property' ? 'property' : 'home';
+      window.MDC_CONFIG = {
+        restUrl: '',                 // demo: no backend – submission completes without sending
+        context: ctx,
+        brandName: 'MALLORCA DELUXE',
+        avatarUrl: './assets/avatar.jpg',
+        primaryColor: '#0e3a4f',
+        accentColor: '#c8a24b',
+        whatsappNumber: '34971000000',
+        defaultLang: qs.get('lang') || 'de',
+        languages: ['de', 'en', 'es'],
+        autoDetect: true,
+        privacyUrl: '',
+        typingDelayMs: 450,
+        greetingTeaser: true,
+        position: 'right'
+      };
+      // context switch buttons
+      document.querySelectorAll('[data-ctx]').forEach(function (b) {
+        if (b.getAttribute('data-ctx') === ctx) { b.classList.add('active'); }
+        b.addEventListener('click', function () {
+          location.search = '?context=' + b.getAttribute('data-ctx');
+        });
+      });
+      document.getElementById('ctxhint').textContent =
+        ctx === 'property' ? 'Aktueller Dialog: Objektseite' : 'Aktueller Dialog: Startseite';
+    })();
+  </script>
+  <script src="./assets/mdc-flows.js"></script>
+  <script src="./assets/mdc-widget.js"></script>
+</body>
+</html>
