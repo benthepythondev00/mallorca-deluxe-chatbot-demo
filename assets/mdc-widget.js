@@ -106,7 +106,10 @@
     this.flowType = null;
     this.submitted = false;
     this.startedAt = nowIso();
-    if (this.body) { this.body.innerHTML = ""; }
+    if (this.body) {
+      this.body.innerHTML = "";
+      if (this.interaction) { this.clearInteraction(); this.body.appendChild(this.interaction); }
+    }
   };
 
   function nowIso() {
@@ -187,14 +190,16 @@
   Widget.prototype.buildBody = function () {
     this.body = el("div", { class: "mdc-body", dataset: { mdc: "body" }, role: "log",
       "aria-live": "polite", "aria-atomic": "false" });
+    // The interaction (options/form/consent) lives INSIDE the scrollable body and
+    // always stays as its last child, so long option lists scroll naturally.
+    this.interaction = el("div", { class: "mdc-interaction", dataset: { mdc: "interaction" } });
+    this.body.appendChild(this.interaction);
     return this.body;
   };
 
   Widget.prototype.buildFooter = function () {
     var self = this;
-    this.interaction = el("div", { class: "mdc-interaction", dataset: { mdc: "interaction" } });
     this.footer = el("footer", { class: "mdc-footer" }, [
-      this.interaction,
       el("button", { type: "button", class: "mdc-restart", dataset: { mdc: "restart" },
         onclick: function () { self.restart(); }, html: refreshIcon() + "<span>" + escHtml(this.t("restart")) + "</span>" })
     ]);
@@ -299,12 +304,13 @@
   Widget.prototype.renderInteraction = function (node) {
     this.clearInteraction();
     switch (node.type) {
-      case "single": return this.renderSingle(node);
-      case "multi": return this.renderMulti(node);
-      case "form": return this.renderForm(node);
-      case "consent": return this.renderConsent(node);
+      case "single": this.renderSingle(node); break;
+      case "multi": this.renderMulti(node); break;
+      case "form": this.renderForm(node); break;
+      case "consent": this.renderConsent(node); break;
       default: return;
     }
+    this.scrollQuestionIntoView();
   };
 
   Widget.prototype.renderSingle = function (node) {
@@ -562,6 +568,7 @@
       type: "button", class: "mdc-ghost-btn", dataset: { mdc: "restart-end" },
       onclick: function () { self.restart(); }, text: this.t("restart")
     }));
+    this.scrollQuestionIntoView();
   };
 
   /* ----------------------------- back -------------------------------- */
@@ -588,6 +595,8 @@
   // Rebuild the whole transcript statically up to (and interactive at) targetId
   Widget.prototype.replay = function (targetId) {
     this.body.innerHTML = "";
+    this.clearInteraction();
+    this.body.appendChild(this.interaction);   // keep interaction as the last child
     var queue = this.committed.slice();   // committed entries to consume, in order
     var nodeId = this.entryId();
     var guard = 0;
@@ -639,12 +648,20 @@
   }
 
   /* ----------------------------- message rendering ------------------- */
+  // Insert a message before the interaction so the options always stay last.
+  Widget.prototype.bodyInsert = function (node) {
+    if (this.interaction && this.interaction.parentNode === this.body) {
+      this.body.insertBefore(node, this.interaction);
+    } else {
+      this.body.appendChild(node);
+    }
+  };
   Widget.prototype.appendBotBubble = function (textObj) {
     var bubble = el("div", { class: "mdc-msg mdc-msg-bot", dataset: { mdc: "bot-msg" } }, [
       el("img", { class: "mdc-msg-avatar", src: this.cfg.avatarUrl || "", alt: "" }),
       el("div", { class: "mdc-bubble", text: this.tr(textObj).replace("{name}", this.firstName()) })
     ]);
-    this.body.appendChild(bubble);
+    this.bodyInsert(bubble);
     this.scroll();
     return bubble;
   };
@@ -656,7 +673,7 @@
     var b = el("div", { class: "mdc-msg mdc-msg-user", dataset: { mdc: "user-msg" } }, [
       el("div", { class: "mdc-bubble", text: text })
     ]);
-    this.body.appendChild(b);
+    this.bodyInsert(b);
     this.scroll();
   };
   Widget.prototype.pushUserInstant = function (text) { this.pushUser(text); };
@@ -673,7 +690,7 @@
         el("span", { class: "mdc-dotty" }), el("span", { class: "mdc-dotty" }), el("span", { class: "mdc-dotty" })
       ])
     ]);
-    this.body.appendChild(this.typingEl);
+    this.bodyInsert(this.typingEl);
     this.scroll();
   };
   Widget.prototype.hideTyping = function () {
@@ -685,6 +702,19 @@
     var b = this.body;
     w.requestAnimationFrame ? w.requestAnimationFrame(function () { b.scrollTop = b.scrollHeight; })
       : (b.scrollTop = b.scrollHeight);
+  };
+
+  // Scroll so the current question (last bot bubble) sits near the top, revealing
+  // the options below it – important when an option list is taller than the panel.
+  Widget.prototype.scrollQuestionIntoView = function () {
+    var b = this.body;
+    var bots = b.querySelectorAll('.mdc-msg-bot:not(.mdc-typing)');
+    var last = bots.length ? bots[bots.length - 1] : null;
+    var run = function () {
+      if (last) { b.scrollTop = Math.max(0, last.offsetTop - 14); }
+      else { b.scrollTop = b.scrollHeight; }
+    };
+    w.requestAnimationFrame ? w.requestAnimationFrame(run) : run();
   };
 
   // Sequentially reveal bot bubbles with a typing indicator between them

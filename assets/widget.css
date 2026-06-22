@@ -139,7 +139,8 @@
 
 /* =============================== Body ============================== */
 .mdc-body {
-  flex: 1 1 auto; overflow-y: auto; padding: 16px 16px 8px;
+  position: relative;
+  flex: 1 1 auto; overflow-y: auto; padding: 16px 16px 14px;
   background: var(--mdc-surface);
   display: flex; flex-direction: column; gap: 10px;
   scroll-behavior: smooth;
@@ -183,8 +184,10 @@
 @keyframes mdc-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
 /* ============================= Footer ============================= */
-.mdc-footer { border-top: 1px solid var(--mdc-line); background: var(--mdc-surface); padding: 12px 16px; }
-.mdc-interaction { display: flex; flex-direction: column; gap: 10px; }
+.mdc-footer { border-top: 1px solid var(--mdc-line); background: var(--mdc-surface); padding: 8px 16px; display: flex; justify-content: center; }
+/* interaction now lives inside the scrollable body, as its last child */
+.mdc-interaction { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+.mdc-interaction:empty { margin-top: 0; }
 
 /* options stack full width */
 .mdc-options { display: flex; flex-direction: column; gap: 8px; }
@@ -275,12 +278,12 @@
 
 /* restart footer */
 .mdc-restart {
-  margin-top: 10px; border: none; background: transparent; color: var(--mdc-muted);
+  border: none; background: transparent; color: var(--mdc-muted);
   font-family: inherit; font-size: 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 0; align-self: center;
+  padding: 4px 0;
 }
 .mdc-restart:hover { color: var(--mdc-primary); }
-.mdc-ended .mdc-restart { display: none; }
+.mdc-ended .mdc-footer { display: none; } /* end screen has its own "new conversation" button */
 
 /* ============================ Responsive ========================== */
 @media (max-width: 480px) {

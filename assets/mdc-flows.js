@@ -165,14 +165,11 @@
           { v: "meerblick", l: { de: "Meerblick", en: "Sea view", es: "Vistas al mar" } },
           { v: "strandnaehe", l: { de: "Strandnähe", en: "Close to the beach", es: "Cerca de la playa" } },
           { v: "ruhe", l: { de: "Ruhe & Privatsphäre", en: "Peace & privacy", es: "Tranquilidad y privacidad" } },
-          { v: "naehe_palma", l: { de: "Nähe zu Palma", en: "Close to Palma", es: "Cerca de Palma" } },
           { v: "golfplatz", l: { de: "Golfplatz", en: "Golf course", es: "Campo de golf" } },
-          { v: "yachthafen", l: { de: "Yachthafen", en: "Marina", es: "Puerto deportivo" } },
           { v: "familienfreundlich", l: { de: "Familienfreundlich", en: "Family-friendly", es: "Ideal para familias" } },
           { v: "intl_schulen", l: { de: "Internationale Schulen", en: "International schools", es: "Colegios internacionales" } },
           { v: "moderne_architektur", l: { de: "Moderne Architektur", en: "Modern architecture", es: "Arquitectura moderna" } },
-          { v: "finca", l: { de: "Traditionelle Finca", en: "Traditional finca", es: "Finca tradicional" } },
-          { v: "vermietbarkeit", l: { de: "Gute Vermietbarkeit", en: "Good rental potential", es: "Buen potencial de alquiler" } }
+          { v: "finca", l: { de: "Traditionelle Finca", en: "Traditional finca", es: "Finca tradicional" } }
         ],
         next: "b_region"
       },
