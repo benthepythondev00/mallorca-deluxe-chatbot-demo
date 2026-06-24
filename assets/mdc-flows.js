@@ -13,7 +13,7 @@
   "use strict";
 
   var FLOWS = {
-    version: "1.0.0",
+    version: "1.0.1",
     langs: ["de", "en", "es"],
 
     /* Entry node per page context. The engine picks one based on MDC_CONFIG.context */
@@ -25,7 +25,7 @@
     ui: {
       de: {
         subtitle: "Ihr persönlicher Immobilien-Concierge",
-        launcherTeaser: "Wie darf ich Ihnen helfen?",
+        launcherTeaser: "Wie kann ich Ihnen behilflich sein?",
         online: "Antwortet sofort",
         back: "Zurück",
         next: "Weiter",
@@ -55,7 +55,7 @@
       },
       en: {
         subtitle: "Your personal real-estate concierge",
-        launcherTeaser: "How may I help you?",
+        launcherTeaser: "How can I help you?",
         online: "Replies instantly",
         back: "Back",
         next: "Continue",
@@ -183,8 +183,8 @@
         }],
         options: [
           { v: "palma", l: { de: "Palma & Umgebung inkl. Son Vida", en: "Palma & surroundings incl. Son Vida", es: "Palma y alrededores, incl. Son Vida" } },
-          { v: "suedwesten", l: { de: "Südwesten (Port d'Andratx, Santa Ponsa, Puerto Portals, Bendinat)", en: "Southwest (Port d'Andratx, Santa Ponsa, Puerto Portals, Bendinat)", es: "Suroeste (Port d'Andratx, Santa Ponsa, Puerto Portals, Bendinat)" } },
-          { v: "norden", l: { de: "Norden (Pollensa, Alcúdia)", en: "North (Pollensa, Alcúdia)", es: "Norte (Pollensa, Alcúdia)" } },
+          { v: "suedwesten", l: { de: "Südwesten (Port d'Andratx, Camp de Mar, Santa Ponsa, Puerto Portals, Bendinat)", en: "Southwest (Port d'Andratx, Camp de Mar, Santa Ponsa, Puerto Portals, Bendinat)", es: "Suroeste (Port d'Andratx, Camp de Mar, Santa Ponsa, Puerto Portals, Bendinat)" } },
+          { v: "norden", l: { de: "Norden (Pollença, Alcúdia)", en: "North (Pollença, Alcúdia)", es: "Norte (Pollença, Alcúdia)" } },
           { v: "westen", l: { de: "Westen (Sóller, Deià, Valldemossa)", en: "West (Sóller, Deià, Valldemossa)", es: "Oeste (Sóller, Deià, Valldemossa)" } },
           { v: "zentrum", l: { de: "Zentrum / ländlich", en: "Centre / rural", es: "Centro / rural" } },
           { v: "beratung", l: { de: "Ich wünsche Beratung", en: "I would like advice", es: "Deseo asesoramiento" } }
@@ -205,9 +205,9 @@
             es: "El suroeste es una de las regiones más exclusivas de Mallorca. Port Andratx, Bendinat y Santa Ponsa son especialmente populares, conocidos por sus villas de lujo, puertos deportivos, campos de golf y comunidades internacionales."
           },
           norden: {
-            de: "Der Norden Mallorcas bietet eine besonders entspannte und authentische Atmosphäre. Regionen wie Pollensa und Alcúdia sind bekannt für Natur, lange Strände und großzügige Immobilien mit viel Privatsphäre.",
-            en: "The north of Mallorca offers a particularly relaxed and authentic atmosphere. Areas such as Pollensa and Alcúdia are known for nature, long beaches and spacious properties with plenty of privacy.",
-            es: "El norte de Mallorca ofrece un ambiente especialmente relajado y auténtico. Zonas como Pollensa y Alcúdia son conocidas por su naturaleza, sus largas playas y sus amplias propiedades con mucha privacidad."
+            de: "Der Norden Mallorcas bietet eine besonders entspannte und authentische Atmosphäre. Regionen wie Pollença und Alcúdia sind bekannt für Natur, lange Strände und großzügige Immobilien mit viel Privatsphäre.",
+            en: "The north of Mallorca offers a particularly relaxed and authentic atmosphere. Areas such as Pollença and Alcúdia are known for nature, long beaches and spacious properties with plenty of privacy.",
+            es: "El norte de Mallorca ofrece un ambiente especialmente relajado y auténtico. Zonas como Pollença y Alcúdia son conocidas por su naturaleza, sus largas playas y sus amplias propiedades con mucha privacidad."
           },
           westen: {
             de: "Der Westen Mallorcas zählt zu den spektakulärsten und exklusivsten Landschaften der Insel. Orte wie Deià und Sóller verbinden Natur, Privatsphäre und authentischen mediterranen Charme auf besondere Weise.",
@@ -519,8 +519,8 @@
       property_entry: {
         type: "single", flow: "property", key: "intent",
         bot: [{
-          de: "Hallo! Schön, dass Ihnen diese Immobilie gefällt. Ich beantworte Ihnen gerne Ihre Fragen – ganz unkompliziert. Wie darf ich Ihnen helfen?",
-          en: "Hello! Great that you like this property. I'm happy to answer your questions – quite simply. How may I help you?",
+          de: "Hallo! Schön, dass Ihnen diese Immobilie gefällt. Ich beantworte Ihnen gerne Ihre Fragen – ganz unkompliziert. Wie kann ich Ihnen behilflich sein?",
+          en: "Hello! Great that you like this property. I'm happy to answer your questions – quite simply. How can I help you?",
           es: "¡Hola! Me alegra que le guste esta propiedad. Con gusto respondo a sus preguntas, de forma muy sencilla. ¿En qué puedo ayudarle?"
         }],
         options: [
