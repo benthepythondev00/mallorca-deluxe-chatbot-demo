@@ -72,6 +72,11 @@
     (function () {
       var qs = new URLSearchParams(location.search);
       var ctx = qs.get('context') === 'property' ? 'property' : 'home';
+      // Demo models a multilingual site: the page language matches the visitor
+      // (?lang= overrides), and the chatbot follows that page language.
+      var navLang = (navigator.language || 'de').slice(0, 2).toLowerCase();
+      var pageLang = qs.get('lang') || (['de', 'en', 'es'].indexOf(navLang) > -1 ? navLang : 'de');
+      document.documentElement.setAttribute('lang', pageLang);
       window.MDC_CONFIG = {
         restUrl: '',                 // demo: no backend – submission completes without sending
         context: ctx,
@@ -80,7 +85,7 @@
         primaryColor: '#00a1a1',
         accentColor: '#c8a24b',
         whatsappNumber: '34658335335',
-        defaultLang: qs.get('lang') || 'de',
+        defaultLang: pageLang,
         languages: ['de', 'en', 'es'],
         autoDetect: true,
         privacyUrl: '',

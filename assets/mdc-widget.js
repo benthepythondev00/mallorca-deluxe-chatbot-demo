@@ -77,14 +77,25 @@
 
   Widget.prototype.resolveLang = function () {
     var langs = this.cfg.languages && this.cfg.languages.length ? this.cfg.languages : this.F.langs;
+    // 1) Follow the website/page language (<html lang>) when auto-detect is on,
+    //    so switching the site language (e.g. /en/, /es/) also switches the
+    //    chatbot. This is the highest-priority signal by design.
+    if (this.cfg.autoDetect) {
+      var pageLang = "";
+      try { pageLang = (document.documentElement.getAttribute("lang") || "").slice(0, 2).toLowerCase(); } catch (e) {}
+      if (pageLang && langs.indexOf(pageLang) > -1) { return pageLang; }
+    }
+    // 2) A manual in-widget choice remembered in this browser.
     var stored = null;
     try { stored = w.localStorage.getItem("mdc_lang"); } catch (e) {}
     if (stored && langs.indexOf(stored) > -1) { return stored; }
+    // 3) Browser language (auto-detect fallback when the page language is unknown).
     if (this.cfg.autoDetect) {
       var nav = (w.navigator && (w.navigator.language || w.navigator.userLanguage)) || "";
       var pref = nav.slice(0, 2).toLowerCase();
       if (langs.indexOf(pref) > -1) { return pref; }
     }
+    // 4) Configured default, then first available language.
     if (this.cfg.defaultLang && langs.indexOf(this.cfg.defaultLang) > -1) { return this.cfg.defaultLang; }
     return langs[0] || "de";
   };
